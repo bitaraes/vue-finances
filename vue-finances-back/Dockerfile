@@ -1,15 +1,11 @@
-FROM node:18.12-alpine3.15
+FROM node:10.15.3-alpine AS base-stage
 
 WORKDIR /usr/app
 
 COPY package*.json ./
 
-RUN npm install yarn
+RUN npm i
 
-RUN yarn install
+RUN npm i nodemon@1.18.10
 
 COPY . .
-
-EXPOSE 4000
-
-CMD ["npm", "start"]
