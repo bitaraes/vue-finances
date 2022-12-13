@@ -19,7 +19,4 @@ const server = new GraphQLServer({
   })
 })
 
-server.start({
-  cors: { origin },
-  playground
-}).then(() => console.log('Server running on http://localhost:4000...'))
+server.start().then(() => console.log('Server running on http://localhost:4000...'))
