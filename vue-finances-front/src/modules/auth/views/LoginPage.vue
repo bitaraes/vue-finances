@@ -64,7 +64,7 @@
           <v-snackbar v-model="showSnackbar" top>
             <v-layout justify-space-between align-center>
               {{ error }}
-              <v-btn color="pink" flat icon @click="showSnackbar = false">
+              <v-btn color="pink" text icon @click="showSnackbar = false">
                 <v-icon>close</v-icon>
               </v-btn>
             </v-layout>
@@ -180,8 +180,7 @@ export default {
         this.isLogin
           ? await AuthService.login(this.user)
           : await AuthService.signup(this.user);
-        const authData = AuthService.login(this.user);
-        console.log(authData);
+        this.$router.push(this.$route.query.redirect || { path: "/dashboard" });
       } catch (error) {
         this.error = formatError(error.message);
         this.showSnackbar = true;
