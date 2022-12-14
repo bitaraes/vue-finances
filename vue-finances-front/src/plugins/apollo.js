@@ -1,4 +1,4 @@
-import {ApolloClient, ApolloLink, HttpLink, InMemoryCache} from 'apollo-boost';
+import {ApolloClient, ApolloLink, HttpLink, InMemoryCache} from "apollo-boost";
 
 const AUTH_TOKEN = 'apollo-token';
 
