@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import { errorHandler } from './utils';
+import moment from './plugins/moment';
 import vuelidate from './plugins/vuelidate';
 import vuetify from './plugins/vuetify';
 
@@ -14,5 +15,6 @@ new Vue({
   store,
   vuetify,
   vuelidate,
+  moment,
   render: h => h(App)
 }).$mount('#app')
