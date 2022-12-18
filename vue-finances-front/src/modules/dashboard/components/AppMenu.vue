@@ -68,6 +68,18 @@ export default {
     return {
       items: [
         { title: "Home", icon: "dashboard", url: "/dashboard", exact: true },
+        {
+          title: "Receita",
+          icon: "add",
+          url: "/dashboard/records/add?type=credit",
+          exact: true,
+        },
+        {
+          title: "Despesa",
+          icon: "remove",
+          url: "/dashboard/records/add?type=debit",
+          exact: true,
+        },
       ],
       mini: false,
       user: {},
