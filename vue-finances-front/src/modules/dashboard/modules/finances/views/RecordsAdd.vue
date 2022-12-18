@@ -108,7 +108,13 @@
           <v-icon>close</v-icon>
         </v-btn>
 
-        <v-btn :color="color" large class="mt-4" @click="submit()">
+        <v-btn
+          :color="color"
+          large
+          class="mt-4"
+          @click="submit()"
+          :disabled="$v.$invalid"
+        >
           <v-icon>check</v-icon>
         </v-btn>
       </v-flex>
@@ -189,6 +195,7 @@ export default {
     const { type } = to.query;
     this.changeTitle(type);
     this.record.type = type.toUpperCase();
+    this.record.categoryId = "";
     this.categories = await CategoriesService.categories({
       operation: type,
     });
