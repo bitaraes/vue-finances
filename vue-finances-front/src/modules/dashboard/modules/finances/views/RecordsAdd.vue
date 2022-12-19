@@ -49,7 +49,15 @@
                 item-text="description"
                 item-value="id"
                 v-model="$v.record.accountId.$model"
-              ></v-select>
+              >
+                <v-list-item slot="prepend-item" ripple @click="add('account')">
+                  <v-list-item-action>
+                    <v-icon>add</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-title>Adicionar Conta</v-list-item-title>
+                </v-list-item>
+                <v-divider slot="prepend-item" class="mt-2"></v-divider>
+              </v-select>
 
               <v-select
                 name="category"
@@ -59,7 +67,19 @@
                 item-text="description"
                 item-value="id"
                 v-model="$v.record.categoryId.$model"
-              ></v-select>
+              >
+                <v-list-item
+                  slot="prepend-item"
+                  ripple
+                  @click="add('category')"
+                >
+                  <v-list-item-action>
+                    <v-icon>add</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-title>Adicionar Categoria</v-list-item-title>
+                </v-list-item>
+                <v-divider slot="prepend-item" class="mt-2"></v-divider>
+              </v-select>
 
               <v-text-field
                 name="description"
@@ -117,6 +137,13 @@
         >
           <v-icon>check</v-icon>
         </v-btn>
+        <v-dialog v-model="showAccountCategoryDialog" max-width="350">
+          <AccountCategoryAdd
+            v-if="showAccountCategoryDialog"
+            :entity="entity"
+            @close="showAccountCategoryDialog = false"
+          />
+        </v-dialog>
       </v-flex>
     </v-layout>
   </v-container>
@@ -127,6 +154,7 @@ import moment from "moment";
 import { decimal, minLength, required } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 
+import AccountCategoryAdd from "../components/AccountCategoryAdd.vue";
 import NumericDisplay from "./../components/NumericDisplay.vue";
 
 import AccountsService from "./../services/accounts-service";
@@ -137,12 +165,14 @@ export default {
   name: "RecordsAdd",
   components: {
     NumericDisplay,
+    AccountCategoryAdd,
   },
   data() {
     return {
       accounts: [],
       categories: [],
       dateDialogValue: moment().format("YYYY-MM-DD"),
+      entity: "",
       record: {
         type: this.$route.query.type.toUpperCase(),
         amount: 0,
@@ -153,6 +183,7 @@ export default {
         tags: "",
         note: "",
       },
+      showAccountCategoryDialog: false,
       showDateDialog: false,
       showNotesInput: false,
       showTagsInput: false,
@@ -236,6 +267,10 @@ export default {
       } catch (error) {
         console.log("Error creating record: ", error);
       }
+    },
+    add(entity) {
+      this.showAccountCategoryDialog = true;
+      this.entity = entity;
     },
   },
 };
