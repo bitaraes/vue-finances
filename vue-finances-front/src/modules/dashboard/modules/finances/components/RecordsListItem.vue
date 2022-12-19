@@ -42,7 +42,7 @@ export default {
       return type === "CREDIT" ? "arrow_upward" : "arrow_downward";
     },
     recordIconColor(type) {
-      return type === "CREDIT" ? "primary" : "error";
+      return type === "CREDIT" ? "primary" : "secondary";
     },
   },
 };

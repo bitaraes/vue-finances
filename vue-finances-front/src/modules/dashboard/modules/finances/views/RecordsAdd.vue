@@ -131,6 +131,7 @@ import NumericDisplay from "./../components/NumericDisplay.vue";
 
 import AccountsService from "./../services/accounts-service";
 import CategoriesService from "./../services/categories-service";
+import RecordsService from "../services/records-service";
 
 export default {
   name: "RecordsAdd",
@@ -227,8 +228,14 @@ export default {
       this.showDateDialog = false;
       this.record.date = value;
     },
-    submit() {
-      console.log(this.record);
+    async submit() {
+      try {
+        const record = await RecordsService.createRecord(this.record);
+        console.log(record);
+        this.$router.push({ path: "/dashboard/records" });
+      } catch (error) {
+        console.log("Error creating record: ", error);
+      }
     },
   },
 };
