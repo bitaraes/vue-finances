@@ -49,9 +49,11 @@ import TotalBalance from "./TotalBalance.vue";
 import amountColorsMixin from "../mixins/amount-colors";
 import formatCurrencyMixin from "@/mixins/format-currency";
 import recordsService from "../services/records-service";
+import { groupBy } from "@/utils";
 
 import moment from "moment";
-import { groupBy } from "@/utils";
+import { Subject } from "rxjs";
+import { mergeMap } from "rxjs/operators";
 
 export default {
   name: "RecordsList",
@@ -64,12 +66,13 @@ export default {
   data() {
     return {
       records: [],
+      monthSubject$: new Subject(),
     };
   },
   computed: {
     mappedRecords() {
       return groupBy(this.records, "date", (record, dateKey) => {
-        return moment(record[dateKey]).format("DD/MM/YYYY");
+        return moment(record[dateKey].substr(0, 10)).format("DD/MM/YYYY");
       });
     },
     mappedRecordsLength() {
@@ -82,19 +85,24 @@ export default {
       return this.totalAmount < 0 ? "error" : "primary";
     },
   },
+  created() {
+    this.setRecords();
+  },
   methods: {
     changeMonth(month) {
       this.$router.push({
         path: this.$route.path,
         query: { month },
       });
-      this.setRecords(month);
+      this.monthSubject$.next({ month });
     },
     showDivider(index, obj) {
       return index < Object.keys(obj).length - 1;
     },
-    async setRecords(month) {
-      this.records = await recordsService.records({ month });
+    setRecords() {
+      this.monthSubject$
+        .pipe(mergeMap((variables) => recordsService.records(variables)))
+        .subscribe((records) => (this.records = records));
     },
   },
 };

@@ -10,9 +10,9 @@
       <v-list-item-title>
         {{ record.description }}
       </v-list-item-title>
-      <v-list-item-sub-title>
+      <v-list-item-subtitle>
         {{ record.category.description }} | {{ record.account.description }}
-      </v-list-item-sub-title>
+      </v-list-item-subtitle>
     </v-list-item-content>
 
     <v-list-item-action>
