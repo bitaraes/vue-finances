@@ -40,7 +40,7 @@ export default {
     return {
       item: {
         description: "",
-        operation: "",
+        operation: this.$route.query.type.toUpperCase(),
       },
       operations: [
         { description: "Despesa", value: "DEBIT" },
