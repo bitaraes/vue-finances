@@ -29,7 +29,7 @@ const createRecord = async variables => {
         })
 
       } catch (error) {
-        console("This query has not been read yet!", error)
+        console.log("This query has not been read yet!", error)
       }
 
       try {
@@ -52,7 +52,7 @@ const createRecord = async variables => {
           })
         }
       } catch (error) {
-          console("This query has not been read yet!", error)
+          console.log("This query has not been read yet!", error)
       }
     },
   });

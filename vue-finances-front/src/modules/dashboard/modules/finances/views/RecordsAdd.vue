@@ -142,6 +142,7 @@
             v-if="showAccountCategoryDialog"
             :entity="entity"
             @close="showAccountCategoryDialog = false"
+            @saved="accountCategorySaved"
           />
         </v-dialog>
       </v-flex>
@@ -244,6 +245,10 @@ export default {
   },
   methods: {
     ...mapActions(["setTitle"]),
+    accountCategorySaved(item) {
+      this.showAccountCategoryDialog = false;
+      this.record[`${this.entity}Id`] = item.id;
+    },
     cancelDateDialog() {
       this.showDateDialog = false;
       this.dateDialogValue = this.record.date;
