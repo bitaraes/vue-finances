@@ -90,7 +90,7 @@ export default {
     this.setRecords();
   },
   destroyed() {
-    this.subscriptions.forEach((s) => s.ubsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());
   },
   methods: {
     changeMonth(month) {
