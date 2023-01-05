@@ -19,7 +19,7 @@
     "prisma-client-lib": "1.28.3"
   },
   "devDependencies": {
-    "graphql-yoga": "^1.17.4",
+    "graphql-yoga": "^3.3.0",
     "nodemon": "1.18.10"
   }
 }
